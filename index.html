@@ -148,14 +148,26 @@
     }
 
     /* Footer */
-    footer {
-      text-align: center; padding: 20px;
-      font-size: 14px; opacity: 0.8;
+    #footer {
+      position: fixed;
+      bottom: 80px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      opacity: 0; /* fade-in */
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
+      transition: opacity 1.5s ease;
     }
-    footer a {
-      color: #00f5ff; text-decoration: none;
+    #footer a.glow-text {
+      color: #00f5ff;
+      text-decoration: none;
+      text-shadow: 0 0 8px #00f5ff, 0 0 12px #00f5ff;
+      font-weight: 600;
     }
-    footer a:hover { text-decoration: underline; }
+    #footer a.glow-text:hover {
+      text-shadow: 0 0 12px #00f5ff, 0 0 18px #00f5ff;
+    }
 
     /* Background glows */
     .glow {
@@ -213,8 +225,8 @@
   </div>
 
   <!-- Footer -->
-  <footer>
-    contact: <a href="https://t.me/kiki074" target="_blank">reign</a> (for posts/removals)
+  <footer id="footer">
+    contact: <a href="https://t.me/kiki074" target="_blank" class="glow-text">reign</a> (for posts/removals)
   </footer>
 
   <script>
@@ -226,6 +238,9 @@
         document.getElementById("header").classList.add("visible");
         setTimeout(() => {
           document.getElementById("gallery").classList.add("visible");
+          // fade in footer after gallery
+          const footer = document.getElementById("footer");
+          setTimeout(() => { footer.style.opacity = "1"; }, 500);
         }, 800);
       }, 800);
     }
@@ -250,14 +265,9 @@
     ];
 
     const snippets = [
-      `Hazel Jada Dingleberry's exclusive archive.
-Poor N*GRO scams me for $50`,
-
-      `Javin "NO PANTS" Dillons legendary collection.
-weird ugly pedo`,
-
-      `Poodle moments collection.
-Silly, fluffy, and chaotic.`
+      `Hazel Jada Dingleberry's exclusive archive.\nCarefully curated memories.`,
+      `Javin "NO PANTS" Dillons legendary collection.\nDon’t ask why, just enjoy.`,
+      `Poodle moments collection.\nSilly, fluffy, and chaotic.`
     ];
 
     let currentGallery = 0;
@@ -271,13 +281,9 @@ Silly, fluffy, and chaotic.`
     }
 
     function handleBack() {
-      const grid = document.getElementById("lightbox-grid");
       const single = document.getElementById("lightbox-single");
-      if (single.style.display === "flex") {
-        showGrid();
-      } else {
-        document.getElementById("lightbox").style.display = "none";
-      }
+      if (single.style.display === "flex") showGrid();
+      else document.getElementById("lightbox").style.display = "none";
     }
 
     function showGrid() {
@@ -301,8 +307,7 @@ Silly, fluffy, and chaotic.`
     }
 
     function showMedia() {
-      const container = document.getElementById("lightbox-content");
-      container.innerHTML = `<img src="${galleries[currentGallery][currentIndex]}">`;
+      document.getElementById("lightbox-content").innerHTML = `<img src="${galleries[currentGallery][currentIndex]}">`;
     }
 
     function nextMedia() {
