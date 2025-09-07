@@ -120,6 +120,26 @@
       background: rgba(255,255,255,0.2);
     }
 
+    /* Static pastebin-like text */
+    .textbox-container {
+      margin-top: 20px;
+      width: 100%;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .static-text {
+      background: rgba(0,0,0,0.4); /* transparent overlay */
+      color: #eee;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 14px;
+      font-family: monospace;
+      white-space: pre-line; /* keeps line breaks */
+      text-align: left;
+    }
+
     footer {
       position: fixed;
       bottom: 10px;
@@ -168,6 +188,11 @@
         <span onclick="nextMedia()">Next &#10095;</span>
       </div>
     </div>
+
+    <!-- Pastebin-style static text -->
+    <div class="textbox-container">
+      <div class="static-text" id="static-text"></div>
+    </div>
   </div>
 
   <footer>
@@ -181,7 +206,7 @@
         "https://i.ibb.co/LXQGNSrq/photo-2025-08-27-16-12-54.jpg",
         "https://i.ibb.co/9xDsxqj/photo-2025-08-29-18-28-23.jpg",
         "https://i.ibb.co/wrwHwX21/image-3.webp",
-		"https://i.ibb.co/xq3gJd8N/IMG-7751.webp"
+        "https://i.ibb.co/xq3gJd8N/IMG-7751.webp"
       ],
       [
         "https://i.ibb.co/2YtGxL2K/photo-2025-08-20-16-19-06.jpg",
@@ -194,12 +219,26 @@
       ]
     ];
 
+    // Different text for each gallery
+    const snippets = [
+      `Hazel Jada Dingleberry's exclusive archive.
+Carefully curated memories.`,
+
+      `Javin "NO PANTS" Dillons legendary collection.
+Don’t ask why, just enjoy.`,
+
+      `Poodle moments collection.
+Silly, fluffy, and chaotic.`
+    ];
+
     let currentGallery = 0;
     let currentIndex = 0;
 
     function openLightbox(galleryIndex) {
       document.getElementById("lightbox").style.display = "flex";
       currentGallery = galleryIndex;
+      // Set the text for this gallery
+      document.getElementById("static-text").textContent = snippets[galleryIndex];
       showGrid();
     }
 
